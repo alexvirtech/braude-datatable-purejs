@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>DataTable - Pure JS</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="inc/styles.css">
+    <style>
+        .dark .dark\:text-white, .dark .dark\:text-white td, .dark .dark\:text-white th {
+            color: #fff;
+        }
+
+        .dark .dark\:bg-dark {
+            background-color: #0e658f;
+        }
+    </style>
+
+    </style>
+    <script src="inc/common.js"></script>    
+    <script>
+      const cell = (d,tp='body') => tp=='head' ? `<th>${d==='thumbnail' ? '' : d}</th>` : `<td>${d}</td>`        
+      const thumbCell = d => `<td><img src="${d}" width="50"/></td>`
+      const row = r => `<tr>${thumbCell(r['thumbnail'])}${fields.filter(f=>f!='thumbnail').map(f=>cell(r[f])).join('')}</tr>`      
+      const render = data => {
+          let head = fields.map(d=>cell(d,'head')).join('')
+          let body = data.map(row).join('')
+          let $table = document.createElement('table')
+          $table.classList='table table-bordered table-sm table-hover'
+          $table.innerHTML = `${head}${body}`
+          document.querySelector('#my-table').append($table)            
+      }
+
+      document.addEventListener('DOMContentLoaded',()=>{
+        fetch(url)
+          .then(response => response.json())
+          .then(data => render(data.products))
+      })
+  </script>
+  </head>
+  <body class="dark:bg-dark dark:text-white">
+    <div class="container">
+        <h3 class="my-4">Product List - Pure JS, Bootstrap</h3>
+      <div id="my-table" class="table-responsive"></div>
+    </div>   
+
+     <!-- special scripts for integration in MTW gallery - must be placed at the bottom of the HTML after your code -->
+     <script>
+        // custom config for the MTW app 
+        const mtwAppConfig = {
+            border: false // app border in the MTW page                    
+        }
+    </script>
+    <script src="https://morethanwallet.com/appstore/index.js"></script>
+  </body>
+</html>
