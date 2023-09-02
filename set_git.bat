@@ -1,6 +1,6 @@
 :: to run use .\set_git.bat
 @echo off
-echo this repository is already initialized, insert :: at the beginning of the rows 2,3,4 in order to reinitialize
+echo this repository is already initialized, insert :: at the beginning of the rows 3,4 in order to reinitialize
 exit /b
 
 echo "# braude-datatable-purejs" >> README.md
